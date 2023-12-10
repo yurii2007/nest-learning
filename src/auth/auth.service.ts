@@ -1,13 +1,13 @@
-import type { User, BookMark } from '@prisma/client';
-import type { AuthDto } from './dto';
 
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-
-import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
+
+import type { AuthDto } from './dto';
+
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +23,6 @@ export class AuthService {
       const user = await this.prisma.user.create({
         data: { email: dto.email, hash },
       });
-  
 
       return {
         message: 'Register was successfully',
